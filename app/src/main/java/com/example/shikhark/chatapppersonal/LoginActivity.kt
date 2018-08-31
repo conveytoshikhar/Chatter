@@ -1,7 +1,9 @@
 package com.example.shikhark.chatapppersonal
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 
@@ -16,7 +18,10 @@ class LoginActivity : AppCompatActivity() {
             toast("Login Clicked")
         }
         signUpBtn.setOnClickListener {
-            toast("Sign up Clicked!")
+            val createUserIntent= Intent(this,CreateUserActivity::class.java)
+            startActivity(createUserIntent)
+
+
         }
     }
 }
