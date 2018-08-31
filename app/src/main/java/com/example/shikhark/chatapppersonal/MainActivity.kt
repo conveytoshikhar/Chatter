@@ -1,5 +1,6 @@
 package com.example.shikhark.chatapppersonal
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -29,7 +30,8 @@ class MainActivity : AppCompatActivity(){
 
 
         loginBtnNavHeader.setOnClickListener {
-            toast("Working Button")
+            val loginIntent= Intent(this,LoginActivity::class.java)
+            startActivity(loginIntent)
         }
 
         addChannelButton.setOnClickListener {
