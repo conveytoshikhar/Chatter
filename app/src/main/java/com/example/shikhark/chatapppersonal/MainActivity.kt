@@ -10,6 +10,9 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(){
 
@@ -24,7 +27,21 @@ class MainActivity : AppCompatActivity(){
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
+
+        loginBtnNavHeader.setOnClickListener {
+            toast("Working Button")
+        }
+
+        addChannelButton.setOnClickListener {
+            toast("Working second button")
+        }
+
+        sendMessageButton.setOnClickListener{
+            toast("Message Btn Clicked.")
+        }
+
     }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
