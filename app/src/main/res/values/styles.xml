@@ -17,4 +17,17 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/white</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:textColor">@color/loss</item>-->
+    </style>
+
+    <style name="Dialog_Blue_Theme">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>
