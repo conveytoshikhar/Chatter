@@ -1,17 +1,20 @@
 package com.example.shikhark.chatapppersonal.controller
 
+import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.shikhark.chatapppersonal.R
 import com.example.shikhark.chatapppersonal.services.AuthService
 import com.example.shikhark.chatapppersonal.utils.CustomDialog
+import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
 import kotlinx.android.synthetic.main.activity_create_user.*
 import org.jetbrains.anko.toast
 import java.util.*
 
 class CreateUserActivity : AppCompatActivity() {
     private val random=Random()
+    lateinit var authToken:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
@@ -32,8 +35,9 @@ class CreateUserActivity : AppCompatActivity() {
             AuthService.registerUser(this,userEmail.text.toString(),userPassword.text.toString()) { complete->
                 if(complete){
                     AuthService.loginUser(this,userEmail.text.toString(),userPassword.text.toString()){
-                        if(it){
-                            toast("Successful token retrieved")
+                        if(complete){
+                            val intent= Intent(this,MainActivity::class.java)
+                            startActivityAsRoot(intent)
                         }else{
                             toast("bad request")
                         }

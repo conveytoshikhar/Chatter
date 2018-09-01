@@ -16,7 +16,12 @@ import org.json.JSONObject
 
 object AuthService {
 
+
+    var isLoggedIn=false
+    var authToken:String="0"
+    var userEmail:String=""
     fun registerUser(context: Context, email:String,password:String,complete:(Boolean)->Unit){
+        userEmail=email
         val url= URL_REGISTER
         //creating JSON body
         val jsonBody=JSONObject()
@@ -55,7 +60,20 @@ object AuthService {
 
         val loginRequest=object:JsonObjectRequest(Request.Method.POST,url,null,Response.Listener {jsonObject->
             println("Response: $jsonObject")
-            complete(true)
+            context.toast("Ath token $authToken")
+
+
+            try{
+                authToken=jsonObject.getString("token")
+                userEmail=jsonObject.getString("user")
+                isLoggedIn=true
+                complete(true)
+            }catch(e:Exception){
+                val intent=(context as Activity).intent
+                (context).finish()
+                (context).startActivity(intent)
+            }
+
 
         },Response.ErrorListener {error->
             println("Error: Failed to retrieve information $error")
