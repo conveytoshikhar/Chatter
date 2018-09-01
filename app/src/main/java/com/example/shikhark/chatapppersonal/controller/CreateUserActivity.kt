@@ -31,12 +31,22 @@ class CreateUserActivity : AppCompatActivity() {
             registerDialog.show()
             AuthService.registerUser(this,userEmail.text.toString(),userPassword.text.toString()) { complete->
                 if(complete){
+                    AuthService.loginUser(this,userEmail.text.toString(),userPassword.text.toString()){
+                        if(it){
+                            toast("Successful token retrieved")
+                        }else{
+                            toast("bad request")
+                        }
+                    }
                     registerDialog.dismiss()
                 }else{
                     registerDialog.dismiss()
                 }
             }
         }
+
+
+
         userImage.setOnClickListener {
             val typeOfImage=random.nextInt(2)
             val imageNumber=random.nextInt(28)
@@ -45,6 +55,8 @@ class CreateUserActivity : AppCompatActivity() {
 
             val resourceId=resources.getIdentifier(userAvatar,"drawable",packageName)
             userImage.setImageResource(resourceId)
+
+
 
 
         }
