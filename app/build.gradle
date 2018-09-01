@@ -36,4 +36,7 @@ dependencies {
 
     //better toasts
     implementation 'org.jetbrains.anko:anko-common:0.8.3'
+
+    //for network requests, google volley
+    compile 'com.android.volley:volley:1.1.1'
 }
