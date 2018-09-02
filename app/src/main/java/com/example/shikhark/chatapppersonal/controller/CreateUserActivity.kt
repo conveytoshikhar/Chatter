@@ -7,19 +7,21 @@ import android.os.Bundle
 import com.example.shikhark.chatapppersonal.R
 import com.example.shikhark.chatapppersonal.services.AuthService
 import com.example.shikhark.chatapppersonal.utils.CustomDialog
+import com.example.shikhark.chatapppersonal.utils.SignUpErrorDecode
 import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
 import kotlinx.android.synthetic.main.activity_create_user.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.toast
 import java.util.*
 
 class CreateUserActivity : AppCompatActivity() {
     private val random=Random()
-    lateinit var authToken:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
 
         var userAvatar="profileDefault"
+        var avatarColor="0 0 0 1"
 
 
         signUpBtn.setOnClickListener {
@@ -32,21 +34,53 @@ class CreateUserActivity : AppCompatActivity() {
             customDialog.init_dialog()
             val registerDialog=customDialog.dialog
             registerDialog.show()
-            AuthService.registerUser(this,userEmail.text.toString(),userPassword.text.toString()) { complete->
-                if(complete){
-                    AuthService.loginUser(this,userEmail.text.toString(),userPassword.text.toString()){
-                        if(complete){
-                            val intent= Intent(this,MainActivity::class.java)
-                            startActivityAsRoot(intent)
-                        }else{
-                            toast("bad request")
-                        }
-                    }
-                    registerDialog.dismiss()
-                }else{
-                    registerDialog.dismiss()
-                }
+
+
+            val userEmail=userEmail.text.toString()
+            val userName=userName.text.toString()
+            val password=userPassword.text.toString()
+
+
+            var validated=false
+
+
+
+            if( SignUpErrorDecode.checkEmailValidity(userEmail).first &&
+                    SignUpErrorDecode.checkPasswod(password,password).first &&
+                    SignUpErrorDecode.checkUserName(userName).first){
+                validated=true
             }
+
+
+            if(validated){
+                AuthService.registerUser(this,userEmail,password) { registerSuccess->
+                    if(registerSuccess){
+                        AuthService.loginUser(this,userEmail,password){loginSuccess->
+                            if(loginSuccess){
+                                AuthService.createUser(this,userName,userEmail,userAvatar,avatarColor){createUserSuccess->
+                                    if(createUserSuccess){
+                                        val intent= Intent(this,MainActivity::class.java)
+                                        intent.putExtra("login",true)
+                                        startActivityAsRoot(intent)
+                                        finish()
+                                    }else{
+                                        finish()
+                                    }
+
+                                }
+                            }else{
+                                finish()
+                            }
+                        }
+                    }else{
+                    }
+                }
+            }else{ //fix error after getting it
+                registerDialog.dismiss()
+                toast("There is some error ")
+            }
+
+
         }
 
 
@@ -66,11 +100,10 @@ class CreateUserActivity : AppCompatActivity() {
         }
 
         generateBackgroundColor.setOnClickListener {
-            toast("Background Changed")
             val(red,green,blue)=generateRandomColor()
+            avatarColor="$red $green $blue 1"
             val color = Color.argb(255, red, green, blue)
             userImage.setBackgroundColor(color)
-            toast("Red:$red Green $green Blue $blue")
         }
 
 
