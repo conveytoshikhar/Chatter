@@ -40,7 +40,6 @@ dependencies {
     //for network requests, google volley
     compile 'com.android.volley:volley:1.1.1'
 
-
     //animations for app, shorcut hahaa
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.3@aar'

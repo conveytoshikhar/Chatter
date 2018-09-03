@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
                 .duration(2000)
                 .playOn(logo)
         Handler().postDelayed({
-            startActivityAsRoot(Intent(this,MainActivity::class.java))
+            startActivityAsRoot(Intent(this,PhoneVerificationTesting::class.java))
         }, (SPLASH_DELAY).toLong())
     }
 }
