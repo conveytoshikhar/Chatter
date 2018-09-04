@@ -17,7 +17,6 @@ import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(){
     var loginSuccess=false
-    lateinit var mAuth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -28,12 +27,6 @@ class MainActivity : AppCompatActivity(){
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-
-        mAuth=FirebaseAuth.getInstance()
-
-        if(mAuth.currentUser==null) {
-            startActivityAsRoot(Intent(this,PhoneVerificationTesting::class.java))
-        }
 
         initUI()
 

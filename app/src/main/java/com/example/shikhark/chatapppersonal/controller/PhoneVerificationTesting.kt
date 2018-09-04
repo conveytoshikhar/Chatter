@@ -1,8 +1,11 @@
 package com.example.shikhark.chatapppersonal.controller
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.shikhark.chatapppersonal.R
+import com.example.shikhark.chatapppersonal.services.UserDataService
+import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
@@ -22,12 +25,13 @@ class PhoneVerificationTesting : AppCompatActivity() {
 
 
         mCallbacks= object:OnVerificationStateChangedCallbacks(){
-            override fun onVerificationCompleted(p0: PhoneAuthCredential?) {
-                toast("Verified")
+            override fun onVerificationCompleted(phoneCredential: PhoneAuthCredential?) {
+                toast("Successfully verified")
+                signInUser(phoneCredential)
             }
 
             override fun onVerificationFailed(p0: FirebaseException?) {
-                toast("Not verified")
+                toast("Not verified,please try again")
             }
 
         }
@@ -46,4 +50,13 @@ class PhoneVerificationTesting : AppCompatActivity() {
 
 
     }
+
+
+    fun signInUser(phoneCredential:PhoneAuthCredential?){
+        val intent=Intent(this, MainActivity::class.java)
+        UserDataService.number=phoneNumber
+        startActivityAsRoot(intent)
+    }
 }
+
+
