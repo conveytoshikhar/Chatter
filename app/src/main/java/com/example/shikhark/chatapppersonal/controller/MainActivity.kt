@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import com.example.shikhark.chatapppersonal.R
 import com.example.shikhark.chatapppersonal.services.UserDataService
+import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -15,6 +17,7 @@ import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(){
     var loginSuccess=false
+    lateinit var mAuth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -26,6 +29,11 @@ class MainActivity : AppCompatActivity(){
         toggle.syncState()
 
 
+        mAuth=FirebaseAuth.getInstance()
+
+        if(mAuth.currentUser==null) {
+            startActivityAsRoot(Intent(this,PhoneVerificationTesting::class.java))
+        }
 
         initUI()
 
