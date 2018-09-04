@@ -44,6 +44,10 @@ dependencies {
     //animations for app, shorcut hahaa
     implementation 'com.daimajia.easing:library:2.0@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
+
+
+    //country picker
+    implementation 'com.hbb20:ccp:2.2.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

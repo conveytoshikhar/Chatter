@@ -35,9 +35,13 @@ class PhoneVerificationTesting : AppCompatActivity() {
             }
 
         }
+
+
+        countryCode.registerCarrierNumberEditText(number)
         send.setOnClickListener {
-            phoneNumber=number.text.toString()
-            toast("Button Clicked. ")
+
+            phoneNumber=countryCode.fullNumberWithPlus
+            toast("Button Clicked. $phoneNumber ")
             PhoneAuthProvider.getInstance().verifyPhoneNumber(
                     phoneNumber,        // Phone number to verify
                     60,                 // Timeout duration
