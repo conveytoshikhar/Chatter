@@ -109,11 +109,6 @@ object AuthService {
 
             try{
                 context.toast(jsonObject.toString())
-                UserDataService.name=jsonObject.getString("name")
-                UserDataService.email=jsonObject.getString("email")
-                UserDataService.avatarName=jsonObject.getString("avatarName")
-                UserDataService.avatarColor=jsonObject.getString("avatarColor")
-                UserDataService.id=jsonObject.getString("_id")
                 complete(true)
             }catch (e:Exception){
                 println("Error With request ")

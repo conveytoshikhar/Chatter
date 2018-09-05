@@ -9,6 +9,7 @@ import com.example.shikhark.chatapppersonal.R
 import com.example.shikhark.chatapppersonal.services.UserDataService
 import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -16,17 +17,14 @@ import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(){
-    var loginSuccess=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         setSupportActionBar(toolbar)
-        loginSuccess=intent.getBooleanExtra("login",false)
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
 
         initUI()
 
@@ -47,9 +45,7 @@ class MainActivity : AppCompatActivity(){
 
 
     fun initUI(){
-        if (loginSuccess){
-            mainChannelName.text=UserDataService.toString()
-        }
+        mainChannelName.text=UserDataService.toString()
     }
 
     override fun onBackPressed() {

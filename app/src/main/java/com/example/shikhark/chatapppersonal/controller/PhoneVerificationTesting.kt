@@ -27,7 +27,7 @@ class PhoneVerificationTesting : AppCompatActivity() {
         mCallbacks= object:OnVerificationStateChangedCallbacks(){
             override fun onVerificationCompleted(phoneCredential: PhoneAuthCredential?) {
                 toast("Successfully verified")
-                signInUser(phoneCredential)
+                createUser(phoneCredential)
             }
 
             override fun onVerificationFailed(p0: FirebaseException?) {
@@ -56,9 +56,8 @@ class PhoneVerificationTesting : AppCompatActivity() {
     }
 
 
-    fun signInUser(phoneCredential:PhoneAuthCredential?){
+    fun createUser(phoneCredential:PhoneAuthCredential?){
         val intent=Intent(this, MainActivity::class.java)
-        UserDataService.number=phoneNumber
         startActivityAsRoot(intent)
     }
 }

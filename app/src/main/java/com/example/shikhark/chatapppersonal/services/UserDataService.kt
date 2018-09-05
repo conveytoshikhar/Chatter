@@ -1,16 +1,16 @@
 package com.example.shikhark.chatapppersonal.services
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+
 object UserDataService {
-    var id=""
-    var avatarColor=""
-    var email=""
-    var avatarName=""
-    var name=""
-    var number=""
-
-
+    var mAuth:FirebaseAuth=FirebaseAuth.getInstance()
+    var currentUser:FirebaseUser?=null
+    init{
+        currentUser= mAuth.currentUser
+    }
     override fun toString(): String {
-        return "Id: $id  Phone: $number Avatar: $avatarColor $avatarName email: $email name:$name"
+        return "${currentUser.toString()}"
 
     }
 }

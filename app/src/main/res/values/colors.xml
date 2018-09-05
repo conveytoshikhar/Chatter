@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#5489c6</color>
     <color name="colorAccent">#5ea0c9</color>
     <color name="white">#ffffff</color>
+    <color name="colorSignUpPrimary">#F7567C</color>
+    <color name="colorSignUpAccent">#99E1D9</color>
+    <color name="colorSignUpSecondary">#5D576B</color>
 </resources>
