@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.shikhark.chatapppersonal"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -47,6 +47,9 @@ dependencies {
 
     //country picker
     implementation 'com.hbb20:ccp:2.2.2'
+
+    //custom fonts
+    implementation 'me.anwarshahriar:calligrapher:1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

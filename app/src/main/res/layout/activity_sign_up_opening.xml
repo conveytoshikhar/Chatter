@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSignUpPrimary"
+    android:fitsSystemWindows="true"
     tools:context=".controller.SignUpOpening">
 
     <TextView
@@ -16,8 +17,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Welcome, Let's Proceed"
-        android:textColor="@color/whitewq
-"
+        android:textColor="@color/white"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

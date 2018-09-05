@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
                 .duration(2000)
                 .playOn(logo)
         Handler().postDelayed({
-            if(currentUser==null) startActivityAsRoot(Intent(this,PhoneVerificationTesting::class.java))
+            if(currentUser==null) startActivityAsRoot(Intent(this,SignUpOpening::class.java))
             else {
                 startActivityAsRoot(Intent(this,MainActivity::class.java))
             }
