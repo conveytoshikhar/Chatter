@@ -50,6 +50,10 @@ dependencies {
 
     //custom fonts
     implementation 'me.anwarshahriar:calligrapher:1.0'
+
+
+    //custom button
+    implementation 'com.github.rasoulmiri:buttonloading:v1.0.8'
 }
 
 apply plugin: 'com.google.gms.google-services'
