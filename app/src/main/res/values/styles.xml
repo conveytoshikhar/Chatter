@@ -32,4 +32,16 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+    <style name="singUpButtonLoading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+
+
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,7 +9,7 @@
     tools:context=".controller.SignUpOpening">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -19,30 +19,18 @@
         android:text="Welcome, Let's Proceed"
         android:textColor="@color/white"
         android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerInParent="true"
+        />
 
-    <io.rmiri.buttonloading.ButtonLoading
-        android:id="@+id/proceed"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_margin="20dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:BL_backgroundColor="#80ffffff"
-        app:BL_circleColor="@color/colorSignUpAccent"
-        app:BL_circleColorSecond="@color/colorSignUpSecondary"
+    <io.rmiri.buttonloading.ButtonLoading android:id="@+id/proceed"
+        app:BL_circleColor="@color/colorSignUpSecondary"
+        app:BL_circleColorSecond="@color/colorSignUpAccent"
         app:BL_enable="true"
         app:BL_stateShow="normal"
         app:BL_text="Proceed"
-        app:BL_textColor="#FFFFFF"
-        app:BL_textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-</android.support.constraint.ConstraintLayout>
+        app:BL_textColor="@color/white"
+        app:BL_textSize="20sp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        style="@style/singUpButtonLoading" />
+</RelativeLayout>

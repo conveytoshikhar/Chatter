@@ -4,7 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSignUpPrimary"
     tools:context=".controller.PhoneVerificationTesting">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:padding="20dp"
+        android:text="Verify your mobile number..."
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/countryCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
@@ -18,7 +33,9 @@
         android:ems="10"
         android:textAlignment="center"
         android:inputType="phone"
-        android:textSize="20sp"
+        android:textSize="35sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorSignUpAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +54,7 @@
         app:ccpDialog_showFlag="true"
         app:ccpDialog_showPhoneCode="true"
         app:ccpDialog_showTitle="true"
+        android:background="@color/white_transculent"
         app:ccp_arrowSize="20dp"
         app:ccp_autoDetectCountry="true"
         app:ccp_autoDetectLanguage="true"
@@ -57,15 +75,21 @@
         app:layout_constraintBottom_toTopOf="@+id/number" />
 
 
-    <Button
-        android:id="@+id/send"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Send"
+    <io.rmiri.buttonloading.ButtonLoading xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/proceed"
+        style="@style/singUpButtonLoading"
+        android:layout_margin="20dp"
+        app:BL_circleColor="@color/colorSignUpSecondary"
+        app:BL_circleColorSecond="@color/colorSignUpAccent"
+        app:BL_enable="true"
+        app:BL_stateShow="normal"
+        app:BL_text="Proceed"
+        app:BL_textColor="@color/white"
+        app:BL_textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number" />
+
 </android.support.constraint.ConstraintLayout>

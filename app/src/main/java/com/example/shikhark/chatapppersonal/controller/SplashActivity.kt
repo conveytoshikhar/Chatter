@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
 
 
         YoYo.with(Techniques.Bounce)
-                .duration(2000)
+                .duration(SPLASH_DELAY.toLong())
                 .playOn(logo)
         Handler().postDelayed({
             if(currentUser==null) startActivityAsRoot(Intent(this,SignUpOpening::class.java))
