@@ -41,6 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Proceed"
+        android:textColor="@color/white"
+        android:background="@drawable/sign_up_button_selector"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_below="@id/centerLayout"

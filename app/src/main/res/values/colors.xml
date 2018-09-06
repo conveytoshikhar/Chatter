@@ -8,4 +8,5 @@
     <color name="colorSignUpPrimary">#F7567C</color>
     <color name="colorSignUpAccent">#A1D2CE</color>
     <color name="colorSignUpSecondary">#4A5899</color>
+    <color name="transparent">#00000000</color>
 </resources>

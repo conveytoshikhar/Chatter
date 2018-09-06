@@ -10,8 +10,7 @@ import com.example.shikhark.chatapppersonal.utils.loadFonts
 import io.rmiri.buttonloading.ButtonLoading
 import kotlinx.android.synthetic.main.activity_sign_up_opening.*
 import android.os.CountDownTimer
-
-
+import com.example.shikhark.chatapppersonal.utils.CustomDialog
 
 
 class SignUpOpening : AppCompatActivity() {
@@ -22,27 +21,20 @@ class SignUpOpening : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up_opening)
         this.loadFonts("Raleway-Light.ttf")
         val context=this
-        proceed.setOnButtonLoadingListener(object : ButtonLoading.OnButtonLoadingListener {
-            override fun onClick() {
+        proceed.setOnClickListener {
+            val dialog=CustomDialog(context).getInstace()
+            dialog.show()
+            val timer = object : CountDownTimer(SPLASH_DELAY.toLong(), 1000) {
+                override fun onTick(millisUntilFinished: Long) {}
 
-
-            }
-
-            override fun onStart() {
-                val timer = object : CountDownTimer(SPLASH_DELAY.toLong(), 1000) {
-                    override fun onTick(millisUntilFinished: Long) {}
-
-                    override fun onFinish() {
-                        startActivity(Intent(context, NameSignIn::class.java))
-                        finish()
-                    }
+                override fun onFinish() {
+                    dialog.dismiss()
+                    startActivity(Intent(context, EmailSignUp::class.java))
+                    finish()
                 }
-                timer.start()
             }
+            timer.start()
+        }
 
-            override fun onFinish() {
-
-            }
-        })
     }
 }

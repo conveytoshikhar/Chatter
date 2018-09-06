@@ -26,12 +26,9 @@ class CreateUserActivity : AppCompatActivity() {
 
         signUpBtn.setOnClickListener {
             val customDialog=CustomDialog(
-                    title = "Proceeding",
-                    subtext="Please Wait",
-                    context=this,
-                    cancellable = false
+
+                    context=this
             )
-            customDialog.init_dialog()
             val registerDialog=customDialog.dialog
             registerDialog.show()
 

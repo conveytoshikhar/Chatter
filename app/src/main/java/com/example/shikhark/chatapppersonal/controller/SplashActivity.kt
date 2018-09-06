@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
                 .playOn(logo)
         Handler().postDelayed({
 
-            if(true) startActivityAsRoot(Intent(this, EmailSignUp::class.java))
+            if(currentUser!=null) startActivityAsRoot(Intent(this, SignUpOpening::class.java))
             else {
                 startActivityAsRoot(Intent(this,MainActivity::class.java))
             }
