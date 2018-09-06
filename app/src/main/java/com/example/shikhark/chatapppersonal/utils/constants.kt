@@ -9,3 +9,7 @@ const val URL_ADD_USER="$BASE_URL/user/add"
 
 //Splash Activity
 const val SPLASH_DELAY=2000
+
+
+
+const val SignUpRequestCode=1

@@ -38,7 +38,6 @@ class EmailSignUp : AppCompatActivity() {
                             startActivityForResult(Intent(this,NameSignIn::class.java),1000)
 
                         }else {
-                            dialog.dismiss()
                             when {
                                 it.exception is FirebaseAuthUserCollisionException -> sendConfirmationEmail(email,password)
                                 it.exception is FirebaseAuthWeakPasswordException -> toast("Password too weak, should be blah digits ")
@@ -61,10 +60,9 @@ class EmailSignUp : AppCompatActivity() {
     fun sendConfirmationEmail(email:String,password: String){
         mAuth.currentUser!!.reload()
                 .addOnCompleteListener {
-                    dialog.show()
                     currentUser=mAuth.currentUser
                     val isEmailVerified= currentUser?.isEmailVerified
-                    currentUser?.let {user->
+                    currentUser?.let {
                         if(isEmailVerified!!) {
                             signInWithEmailAndPassword(email,password)
                         }else {//email not verified
@@ -90,17 +88,16 @@ class EmailSignUp : AppCompatActivity() {
                 .addOnCompleteListener {
                     if(it.isSuccessful){
                         toast("Email verified")
-                        proceedToPhone()
+                        setResult(Activity.RESULT_OK)
+                        finish()
                     }else{
                         toast(it.exception!!.message.toString())
+                        setResult(Activity.RESULT_CANCELED)
+                        finish()
                     }
                 }
     }
 
-    fun proceedToPhone() {
-        val intent=Intent(this,PhoneVerificationTesting::class.java)
-        startActivityAsRoot(intent)
-    }
 
 
 

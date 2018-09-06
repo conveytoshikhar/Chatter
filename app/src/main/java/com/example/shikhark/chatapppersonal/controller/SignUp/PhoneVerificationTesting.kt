@@ -1,5 +1,6 @@
 package com.example.shikhark.chatapppersonal.controller.SignUp
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -56,6 +57,8 @@ class PhoneVerificationTesting : AppCompatActivity() {
                     object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                         override fun onVerificationFailed(p0: FirebaseException?) {
                             toast("Failed")
+                            setResult(Activity.RESULT_CANCELED)
+                            finish()
                         }
 
                         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -71,9 +74,6 @@ class PhoneVerificationTesting : AppCompatActivity() {
 
     }
 
-    fun enableUserManuallyInputCode(){
-
-    }
     fun linkCredential(phoneCredential:PhoneAuthCredential){
         mAuth.currentUser!!.linkWithCredential(phoneCredential)
                 .addOnCompleteListener {
@@ -82,6 +82,8 @@ class PhoneVerificationTesting : AppCompatActivity() {
                         signInWithCredential(phoneCredential)
                     }else{
                         toast(it.exception!!.message.toString())
+                        setResult(Activity.RESULT_CANCELED)
+                        finish()
                     }
                 }
     }
@@ -93,9 +95,11 @@ class PhoneVerificationTesting : AppCompatActivity() {
                     if(it.isSuccessful){
                         dialog.dismiss()
                         println("Successful sign in using ${currentUser?.email} and ${currentUser?.phoneNumber}")
-                        startActivityAsRoot(Intent(this,MainActivity::class.java))
+                        setResult(Activity.RESULT_OK)
+                        finish()
                     }else{
-                        toast("Nah some problem ")
+                        setResult(Activity.RESULT_CANCELED)
+                        finish()
                     }
                 }
     }
