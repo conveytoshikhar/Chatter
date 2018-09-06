@@ -32,11 +32,8 @@ class NameSignIn : AppCompatActivity() {
                     .build()
             UserDataService.currentUser!!.updateProfile(profile)
                     .addOnCompleteListener {
-                        if(it.isSuccessful)toast("New name of $firstName added to user")
-                        else toast("Nah not  name of $firstName added to user")
-                        val intent=Intent()
-                        val text="Blah returned "
-                        intent.data = Uri.parse(text)
+                        if(it.isSuccessful)println("Name: New name of $firstName added to user")
+                        else println("Name: Nah not  name of $firstName added to user")
                         setResult(Activity.RESULT_OK)
                         finish()
                     }
