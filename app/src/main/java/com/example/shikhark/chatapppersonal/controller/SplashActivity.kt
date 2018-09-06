@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.os.Handler
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.daimajia.androidanimations.library.specials.`in`.DropOutAnimator
 import com.example.shikhark.chatapppersonal.R
+import com.example.shikhark.chatapppersonal.controller.SignUp.EmailSignUp
+import com.example.shikhark.chatapppersonal.controller.SignUp.NameSignIn
+import com.example.shikhark.chatapppersonal.controller.SignUp.SignUpOpening
 import com.example.shikhark.chatapppersonal.services.UserDataService.currentUser
 import com.example.shikhark.chatapppersonal.utils.SPLASH_DELAY
 import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -25,7 +25,8 @@ class SplashActivity : AppCompatActivity() {
                 .duration(SPLASH_DELAY.toLong())
                 .playOn(logo)
         Handler().postDelayed({
-            if(currentUser==null) startActivityAsRoot(Intent(this,SignUpOpening::class.java))
+
+            if(true) startActivityAsRoot(Intent(this, EmailSignUp::class.java))
             else {
                 startActivityAsRoot(Intent(this,MainActivity::class.java))
             }

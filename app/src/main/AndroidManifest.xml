@@ -29,8 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.PhoneVerificationTesting"></activity>
-        <activity android:name=".controller.SignUpOpening"></activity>
+        <activity android:name=".controller.SignUp.PhoneVerificationTesting" />
+        <activity android:name=".controller.SignUp.SignUpOpening" />
+        <activity android:name=".controller.SignUp.EmailSignUp" />
+        <activity android:name=".controller.SignUp.NameSignIn"></activity>
     </application>
 
 </manifest>

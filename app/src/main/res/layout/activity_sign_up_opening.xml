@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorSignUpPrimary"
     android:fitsSystemWindows="true"
-    tools:context=".controller.SignUpOpening">
+    tools:context=".controller.SignUp.SignUpOpening">
 
     <TextView
         android:id="@+id/welcome"
