@@ -29,7 +29,6 @@ class EmailSignUp : AppCompatActivity() {
         proceed.setOnClickListener {
             email = userEmail.text.toString()
             password = userPassword.text.toString()
-            toast("Sending email")
             dialog.show()
             mAuth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener {
@@ -39,6 +38,7 @@ class EmailSignUp : AppCompatActivity() {
                             startActivityForResult(Intent(this,NameSignIn::class.java),1000)
 
                         }else {
+                            dialog.dismiss()
                             when {
                                 it.exception is FirebaseAuthUserCollisionException -> sendConfirmationEmail(email,password)
                                 it.exception is FirebaseAuthWeakPasswordException -> toast("Password too weak, should be blah digits ")
@@ -66,7 +66,7 @@ class EmailSignUp : AppCompatActivity() {
                     val isEmailVerified= currentUser?.isEmailVerified
                     currentUser?.let {user->
                         if(isEmailVerified!!) {
-                            proceedToPhone(email,password)
+                            signInWithEmailAndPassword(email,password)
                         }else {//email not verified
                             dialog.dismiss()
                             currentUser!!.sendEmailVerification()
@@ -85,7 +85,19 @@ class EmailSignUp : AppCompatActivity() {
     }
 
 
-    fun proceedToPhone(email:String,password:String) {
+    fun signInWithEmailAndPassword(email:String,password: String){
+        mAuth.signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener {
+                    if(it.isSuccessful){
+                        toast("Email verified")
+                        proceedToPhone()
+                    }else{
+                        toast(it.exception!!.message.toString())
+                    }
+                }
+    }
+
+    fun proceedToPhone() {
         val intent=Intent(this,PhoneVerificationTesting::class.java)
         startActivityAsRoot(intent)
     }

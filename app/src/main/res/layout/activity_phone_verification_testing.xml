@@ -75,18 +75,14 @@
         app:layout_constraintBottom_toTopOf="@+id/number" />
 
 
-    <io.rmiri.buttonloading.ButtonLoading xmlns:android="http://schemas.android.com/apk/res/android"
+    <Button xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/proceed"
         style="@style/singUpButtonLoading"
         android:layout_margin="20dp"
-        app:BL_circleColor="@color/colorSignUpSecondary"
-        app:BL_circleColorSecond="@color/colorSignUpAccent"
-        app:BL_enable="true"
-        app:BL_stateShow="normal"
-        app:BL_text="Proceed"
-        app:BL_textColor="@color/white"
-        app:BL_textSize="20sp"
+        android:textColor="@color/white"
+        android:text="PROCEED"
+        android:background="@drawable/sign_up_button_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
