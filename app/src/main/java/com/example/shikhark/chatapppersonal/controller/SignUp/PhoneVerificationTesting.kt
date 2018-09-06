@@ -3,9 +3,13 @@ package com.example.shikhark.chatapppersonal.controller.SignUp
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import com.example.shikhark.chatapppersonal.R
 import com.example.shikhark.chatapppersonal.controller.MainActivity
 import com.example.shikhark.chatapppersonal.services.UserDataService
+import com.example.shikhark.chatapppersonal.services.UserDataService.currentUser
+import com.example.shikhark.chatapppersonal.services.UserDataService.mAuth
+import com.example.shikhark.chatapppersonal.utils.CustomDialog
 import com.example.shikhark.chatapppersonal.utils.loadFonts
 import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
 import com.google.firebase.FirebaseException
@@ -21,18 +25,20 @@ import java.util.concurrent.TimeUnit
 class PhoneVerificationTesting : AppCompatActivity() {
     lateinit var phoneNumber:String
     val activity=this
+    lateinit var dialog:android.app.AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_phone_verification_testing)
-
         loadFonts("Raleway-Light.ttf")
 
+        dialog=CustomDialog(this).getInstace()
 
 
 
         countryCode.registerCarrierNumberEditText(number)
         proceed.setOnButtonLoadingListener(object : ButtonLoading.OnButtonLoadingListener {
             override fun onClick() {
+                dialog.show()
                 phoneNumber=countryCode.fullNumberWithPlus
                 toast("Button Clicked. $phoneNumber ")
                 val button=this
@@ -45,7 +51,7 @@ class PhoneVerificationTesting : AppCompatActivity() {
                             override fun onVerificationCompleted(phoneCredential: PhoneAuthCredential?) {
                                 toast("Successfully verified")
                                 phoneCredential?.let{
-                                    signInWithPhoneAuthCredential(it)
+                                    linkCredential(it)
                                 }
                             }
 
@@ -73,19 +79,28 @@ class PhoneVerificationTesting : AppCompatActivity() {
 
     }
 
-    fun signInWithPhoneAuthCredential(phoneCredential:PhoneAuthCredential){
-        UserDataService.mAuth.signInWithCredential(phoneCredential)
+    fun linkCredential(phoneCredential:PhoneAuthCredential){
+        mAuth.currentUser!!.linkWithCredential(phoneCredential)
                 .addOnCompleteListener {
                     if(it.isSuccessful){
-                        toast("User signed and authenticated ")
-                        UserDataService.currentUser=it.result.user
+                        currentUser=it.result.user
+                        signInWithCredential(phoneCredential)
                     }else{
-                        if (it.exception is FirebaseAuthInvalidCredentialsException) {
-                            // The verification code entered was invalid
-                            toast("Invalid Code")
-                        }else {
-                            toast(it.toString())
-                        }
+                        toast(it.exception!!.message.toString())
+                    }
+                }
+    }
+
+
+    fun signInWithCredential(credential: PhoneAuthCredential){
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener {
+                    if(it.isSuccessful){
+                        dialog.dismiss()
+                        println("Successful sign in using ${currentUser?.email} and ${currentUser?.phoneNumber}")
+                        startActivityAsRoot(Intent(this,MainActivity::class.java))
+                    }else{
+                        toast("Nah some problem ")
                     }
                 }
     }

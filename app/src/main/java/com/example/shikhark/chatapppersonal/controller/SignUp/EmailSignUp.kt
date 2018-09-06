@@ -66,7 +66,7 @@ class EmailSignUp : AppCompatActivity() {
                     val isEmailVerified= currentUser?.isEmailVerified
                     currentUser?.let {user->
                         if(isEmailVerified!!) {
-                            signInWithEmailAndPassword(email,password)
+                            proceedToPhone(email,password)
                         }else {//email not verified
                             dialog.dismiss()
                             currentUser!!.sendEmailVerification()
@@ -85,19 +85,9 @@ class EmailSignUp : AppCompatActivity() {
     }
 
 
-    fun signInWithEmailAndPassword(email:String,password:String) {
-        mAuth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener {
-                    if(it.isSuccessful){
-                        currentUser= mAuth.currentUser
-                        dialog.dismiss()
-                        startActivityAsRoot(Intent(this,PhoneVerificationTesting::class.java))
-                    }else{
-                        dialog.dismiss()
-                        toast(it.exception!!.message.toString())
-                    }
-                }
-
+    fun proceedToPhone(email:String,password:String) {
+        val intent=Intent(this,PhoneVerificationTesting::class.java)
+        startActivityAsRoot(intent)
     }
 
 
