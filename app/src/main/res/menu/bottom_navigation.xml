@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    android:id="@+id/about"
+    android:icon="@drawable/ic_message_white_24dp"
+    android:iconTint="@color/colorSignUpSecondary"
+    android:title="Messages" />
+
+    <item
+    android:id="@+id/checking"
+    android:icon="@drawable/ic_message_white_24dp"
+    android:iconTint="@color/colorSignUpSecondary"
+    android:title="Profile" />
+
+</menu>
