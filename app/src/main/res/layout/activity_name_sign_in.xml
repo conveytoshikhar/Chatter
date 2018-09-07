@@ -23,7 +23,7 @@
 
 
         <EditText
-            android:id="@+id/firstNameUser"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="30sp"
@@ -46,7 +46,6 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_below="@id/centerLayout"
-
         />
 
 </RelativeLayout>

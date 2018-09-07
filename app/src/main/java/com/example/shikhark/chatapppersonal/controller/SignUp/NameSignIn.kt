@@ -24,7 +24,7 @@ class NameSignIn : AppCompatActivity() {
         this.loadFonts("Raleway-Light.ttf")
 
         proceed.setOnClickListener {
-            firstName=firstNameUser.text.toString()
+            firstName=name.text.toString()
 
             val profile=UserProfileChangeRequest.Builder()
                     .setDisplayName(firstName)

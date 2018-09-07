@@ -10,7 +10,6 @@ import com.example.shikhark.chatapppersonal.utils.CustomDialog
 import com.example.shikhark.chatapppersonal.utils.SignUpErrorDecode
 import com.example.shikhark.chatapppersonal.utils.startActivityAsRoot
 import kotlinx.android.synthetic.main.activity_create_user.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.toast
 import java.util.*
 

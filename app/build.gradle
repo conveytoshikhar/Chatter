@@ -56,6 +56,7 @@ dependencies {
 
     //spin kit
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
