@@ -9,25 +9,26 @@ import com.example.shikhark.chatapppersonal.R
 import io.rmiri.buttonloading.ButtonLoading
 import kotlinx.android.synthetic.main.activity_sign_up_opening.*
 import android.os.CountDownTimer
+import android.os.PersistableBundle
 import android.preference.PreferenceManager
+import com.example.shikhark.chatapppersonal.R.id.proceed
 import com.example.shikhark.chatapppersonal.controller.MainActivity
 import com.example.shikhark.chatapppersonal.services.UserDataService.currentUser
 import com.example.shikhark.chatapppersonal.utils.*
+import com.google.android.gms.common.oob.SignUp
 import org.jetbrains.anko.toast
 
 
 class SignUpOpening : AppCompatActivity() {
-    var state=-1
+    lateinit var state:SignUpStages
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_opening)
         this.loadFonts("Raleway-Light.ttf")
 
-
-
-        val context=this
+        val context = this
         proceed.setOnClickListener {
-            val dialog=CustomDialog(context).getInstace()
+            val dialog = CustomDialog(context).getInstace()
             dialog.show()
             val timer = object : CountDownTimer(SPLASH_DELAY.toLong(), 1000) {
                 override fun onTick(millisUntilFinished: Long) {}
@@ -42,47 +43,89 @@ class SignUpOpening : AppCompatActivity() {
 
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        proceed.isClickable=true
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             continueRegistration()
-        }else{
-            state-=1
+        } else {
             toast("Some error occured, finsihing")
         }
 
 
-
-
     }
 
 
-    fun continueRegistration(){
-        state+=1
-        when(state){
-            0->goToEmailActivity()
-            1->goToPhoneActivity()
-            2->goToMainActivity()
-        }
-    }
-    fun goToEmailActivity(){
-        startActivityForResult(Intent(this,EmailSignUp::class.java), SignUpRequestCode)
-    }
-
-    fun goToPhoneActivity(){
-        if(currentUser!!.isEmailVerified)
-            startActivityForResult(Intent(this,PhoneVerificationTesting::class.java), SignUpRequestCode)
-        else {
-            state -= 1
-            continueRegistration()
+    fun continueRegistration() {
+        state=getRegistationState()
+        println("SignUpActivity: On continue called with state $state")
+        proceed.isClickable=false
+        when (state) {
+            SignUpStages.Welcome -> goToEmailActivity()
+            SignUpStages.Email -> goToPhoneActivity()
+            SignUpStages.Phone -> goToMainActivity()
+            else->finish()
         }
     }
 
-    fun goToMainActivity(){
-        val pref=PreferenceManager.getDefaultSharedPreferences(this)
-        val editor=pref.edit()
-        editor.putBoolean("LandingFinished",true)
+    fun goToEmailActivity() {
+        startActivityForResult(Intent(this, EmailSignUp::class.java), SignUpRequestCode)
+    }
+
+    fun goToPhoneActivity() {
+        startActivityForResult(Intent(this, PhoneVerificationTesting::class.java), SignUpRequestCode)
+    }
+
+    fun goToMainActivity() {
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = pref.edit()
+        editor.putBoolean("LandingFinished", true)
         editor.apply()
         println("Starting Main-Activity")
-        startActivityAsRoot(Intent(this,MainActivity::class.java))
+        startActivityAsRoot(Intent(this, MainActivity::class.java))
+    }
+
+    fun getRegistationState():SignUpStages{
+        val pref=PreferenceManager.getDefaultSharedPreferences(this)
+        val stateString=pref.getString("SignUp","Welcome")
+        return SignUpStages.convertStringToEnum(stateString)
+    }
+
+
+}
+
+
+
+enum class SignUpStages {
+    Welcome,
+    Email,
+    Phone,
+    MainActivity;
+    companion object {
+        fun convertStringToEnum(value:String):SignUpStages{
+            return when(value){
+                "Welcome"->SignUpStages.Welcome
+                "Email"->SignUpStages.Email
+                "Phone"->SignUpStages.Phone
+                "MainActivity"->SignUpStages.MainActivity
+                else->SignUpStages.MainActivity
+            }
+
+        }
+
+        fun convertEnumToString(obj:SignUpStages):String {
+            return when (obj) {
+                SignUpStages.Welcome -> "Welcome"
+                SignUpStages.Email -> "Email"
+                SignUpStages.Phone -> "Phone"
+                SignUpStages.MainActivity -> "MainActivity"
+            }
+        }
     }
 }
+
+
+

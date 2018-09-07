@@ -1,6 +1,7 @@
 package com.example.shikhark.chatapppersonal.controller
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -21,8 +22,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-
         YoYo.with(Techniques.Bounce)
                 .duration(SPLASH_DELAY.toLong())
                 .playOn(logo)

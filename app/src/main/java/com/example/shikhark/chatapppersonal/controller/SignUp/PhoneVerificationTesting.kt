@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import com.example.shikhark.chatapppersonal.R
 import com.example.shikhark.chatapppersonal.controller.MainActivity
 import com.example.shikhark.chatapppersonal.services.UserDataService.currentUser
@@ -33,13 +34,12 @@ class PhoneVerificationTesting : AppCompatActivity() {
 
 
 
-//        countryCode.registerCarrierNumberEditText(number)
+        countryCode.registerCarrierNumberEditText(number)
         proceed.setOnClickListener {
             dialog.show()
-//            phoneNumber=countryCode.fullNumberWithPlus
-            phoneNumber = "+16505554567"
+            phoneNumber = countryCode.fullNumberWithPlus
             val smsCode = "123456"
-
+            dialog.show()
             val firebaseAuth = FirebaseAuth.getInstance()
             val firebaseAuthSetting = firebaseAuth.firebaseAuthSettings
 
@@ -56,9 +56,9 @@ class PhoneVerificationTesting : AppCompatActivity() {
                     this, /* activity */
                     object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                         override fun onVerificationFailed(p0: FirebaseException?) {
-                            toast("Failed")
+                            toast("Failed,try again")
+                            dialog.dismiss()
                             setResult(Activity.RESULT_CANCELED)
-                            finish()
                         }
 
                         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -82,8 +82,8 @@ class PhoneVerificationTesting : AppCompatActivity() {
                         signInWithCredential(phoneCredential)
                     }else{
                         toast(it.exception!!.message.toString())
-                        setResult(Activity.RESULT_CANCELED)
-                        finish()
+                        toast("Please try again. ")
+                        dialog.dismiss()
                     }
                 }
     }
@@ -94,14 +94,23 @@ class PhoneVerificationTesting : AppCompatActivity() {
                 .addOnCompleteListener {
                     if(it.isSuccessful){
                         dialog.dismiss()
+                        val pref=PreferenceManager.getDefaultSharedPreferences(this)
+                        val editor=pref.edit()
+                        editor.putString("SignUp",SignUpStages.convertEnumToString(SignUpStages.Phone))
+                        editor.apply()
                         println("Successful sign in using ${currentUser?.email} and ${currentUser?.phoneNumber}")
                         setResult(Activity.RESULT_OK)
                         finish()
                     }else{
-                        setResult(Activity.RESULT_CANCELED)
-                        finish()
+                        toast("Please try again. ")
+                        dialog.dismiss()
                     }
                 }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
 

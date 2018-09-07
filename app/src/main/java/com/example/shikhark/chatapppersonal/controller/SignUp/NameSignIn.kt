@@ -26,7 +26,6 @@ class NameSignIn : AppCompatActivity() {
         proceed.setOnClickListener {
             firstName=firstNameUser.text.toString()
 
-            toast(firstName)
             val profile=UserProfileChangeRequest.Builder()
                     .setDisplayName(firstName)
                     .build()
